@@ -30,6 +30,9 @@ druid.processing.numThreads=2
 druid.segmentCache.locations=[{"path":"var/druid/segment-cache","maxSize":"300g"}]
 druid.cache.sizeInBytes=10MiB
 ```
+
+and remove `druid.server.maxSize`
+
 #### conf/druid/middleManager/jvm.config
 ```
 -Xms64m
