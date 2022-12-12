@@ -49,6 +49,15 @@ druid.indexer.fork.property.druid.processing.numMergeBuffers=2
 druid.indexer.fork.property.druid.processing.buffer.sizeBytes=100MiB
 druid.indexer.fork.property.druid.processing.numThreads=1
 ```
+
+and **remove** these
+```
+# Processing threads and buffers
+druid.processing.buffer.sizeBytes=100000000
+druid.processing.numMergeBuffers=2
+druid.processing.numThreads=2
+druid.processing.tmpDir=var/druid/processing
+```
 #### conf/druid/router/jvm.config
 ```
 -Xms128m
