@@ -1,0 +1,78 @@
+{
+  "type": "index_parallel",
+  "spec": {
+    "ioConfig": {
+      "type": "index_parallel",
+      "inputSource": {
+        "type": "local",
+        "baseDir": "/Users/hellmarbecker/Downloads",
+        "filter": "results-sketches.csv"
+      },
+      "inputFormat": {
+        "type": "csv",
+        "findColumnsFromHeader": true
+      }
+    },
+    "tuningConfig": {
+      "type": "index_parallel",
+      "partitionsSpec": {
+        "type": "hashed"
+      },
+      "forceGuaranteedRollup": true
+    },
+    "dataSchema": {
+      "dataSource": "results-sketches",
+      "timestampSpec": {
+        "column": "datetime",
+        "format": "iso"
+      },
+      "dimensionsSpec": {
+        "dimensions": [
+          "campaign",
+          "channel",
+          "gender",
+          "age",
+          "country_code"
+        ]
+      },
+      "granularitySpec": {
+        "queryGranularity": "all",
+        "rollup": true,
+        "segmentGranularity": "day"
+      },
+      "metricsSpec": [
+        {
+          "name": "count",
+          "type": "count"
+        },
+        {
+          "name": "sum_count",
+          "type": "longSum",
+          "fieldName": "count"
+        },
+        {
+          "name": "hll_hll_uid",
+          "type": "HLLSketchMerge",
+          "fieldName": "hll_uid"
+        },
+        {
+          "name": "hll_hll_sid",
+          "type": "HLLSketchMerge",
+          "fieldName": "hll_sid"
+        },
+        {
+          "name": "theta_theta_uid",
+          "type": "thetaSketch",
+          "fieldName": "theta_uid",
+          "isInputThetaSketch": false
+        },
+        {
+          "name": "theta_theta_sid",
+          "type": "thetaSketch",
+          "fieldName": "theta_sid",
+          "isInputThetaSketch": false
+        }
+      ]
+    }
+  }
+}
