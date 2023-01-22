@@ -1,0 +1,89 @@
+{
+  "type": "index_parallel",
+  "spec": {
+    "dataSchema": {
+      "dataSource": "user_data",
+      "timestampSpec": {
+        "column": "ts",
+        "format": "auto"
+      },
+      "dimensionsSpec": {
+        "dimensions": [
+          "dummy1",
+          "dummy2"
+        ]
+      },
+      "metricsSpec": [
+        {
+          "type": "count",
+          "name": "__count"
+        },
+        {
+          "type": "thetaSketch",
+          "name": "theta_user",
+          "fieldName": "user",
+          "size": 16384
+        },
+        {
+          "type": "HLLSketchBuild",
+          "name": "hll_user",
+          "fieldName": "user",
+          "lgK": 12,
+          "tgtHllType": "HLL_4"
+        }
+      ],
+      "granularitySpec": {
+        "type": "uniform",
+        "segmentGranularity": "DAY",
+        "queryGranularity": "DAY",
+        "rollup": true
+      },
+      "transformSpec": {
+        "transforms": [
+          {
+            "type": "expression",
+            "name": "dummy1",
+            "expression": "'A'"
+          },
+          {
+            "type": "expression",
+            "name": "dummy2",
+            "expression": "'B'"
+          }
+        ]
+      }
+    },
+    "ioConfig": {
+      "type": "index_parallel",
+      "inputSource": {
+        "type": "local",
+        "baseDir": "/Users/hellmarbecker/meetup-talks/data-lifecycle",
+        "filter": "data.csv"
+      },
+      "inputFormat": {
+        "type": "csv",
+        "columns": [
+          "ts",
+          "user"
+        ],
+        "findColumnsFromHeader": false
+      },
+      "appendToExisting": false,
+      "dropExisting": false
+    },
+    "tuningConfig": {
+      "type": "index_parallel",
+      "maxRowsPerSegment": 5000000,
+      "maxRowsInMemory": 1000000,
+      "partitionsSpec": {
+        "type": "range",
+        "maxRowsPerSegment": 5000000,
+        "partitionDimensions": [
+          "dummy1",
+          "dummy2"
+        ]
+      },
+      "forceGuaranteedRollup": true
+    }
+  }
+}

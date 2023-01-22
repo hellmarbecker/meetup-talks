@@ -1,7 +1,7 @@
 import random
 from datetime import date, timedelta
 
-MAXUSERS = 10000
+MAXUSERS = 1000
 ROWSPERDAY = 10
 
 def daterange(start_date, end_date):
@@ -11,7 +11,7 @@ def daterange(start_date, end_date):
 def main():
 
     start_date = date(2022, 1, 1)
-    end_date = date(2022, 6, 1)
+    end_date = date(2022, 7, 1)
     for single_date in daterange(start_date, end_date):
         this_day = single_date.strftime("%Y-%m-%d")
         for i in range(ROWSPERDAY):

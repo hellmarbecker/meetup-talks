@@ -1,0 +1,29 @@
+{
+  "type": "compact",
+  "dataSource": "user_data",
+  "ioConfig": {
+    "type": "compact",
+    "inputSpec": {
+      "type": "interval",
+      "interval": "2022-05-01/2022-06-01"
+    }
+  },
+  "granularitySpec": {
+    "segmentGranularity": "week",
+    "queryGranularity": "week"
+  },
+  "tuningConfig": {
+    "type": "index_parallel",
+    "maxRowsPerSegment": 5000000,
+    "maxRowsInMemory": 1000000,
+    "partitionsSpec": {
+      "type": "range",
+      "maxRowsPerSegment": 5000000,
+      "partitionDimensions": [
+        "dummy1",
+        "dummy2"
+      ]
+    },
+    "forceGuaranteedRollup": true
+  }
+}
