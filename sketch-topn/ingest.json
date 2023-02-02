@@ -1,0 +1,51 @@
+{
+  "type": "index_parallel",
+  "spec": {
+    "ioConfig": {
+      "type": "index_parallel",
+      "inputSource": {
+        "type": "local",
+        "baseDir": "/Users/hellmarbecker/meetup-talks/sketch-topn",
+        "filter": "*.json.gz"
+      },
+      "inputFormat": {
+        "type": "json"
+      }
+    },
+    "tuningConfig": {
+      "type": "index_parallel",
+      "partitionsSpec": {
+        "type": "hashed"
+      },
+      "forceGuaranteedRollup": true
+    },
+    "dataSchema": {
+      "dataSource": "sketch-topn",
+      "timestampSpec": {
+        "column": "ts",
+        "format": "iso"
+      },
+      "dimensionsSpec": {
+        "dimensions": [
+          "cohort"
+        ]
+      },
+      "granularitySpec": {
+        "queryGranularity": "hour",
+        "rollup": true,
+        "segmentGranularity": "day"
+      },
+      "metricsSpec": [
+        {
+          "name": "__count",
+          "type": "count"
+        },
+        {
+          "name": "theta_user",
+          "type": "thetaSketch",
+          "fieldName": "user"
+        }
+      ]
+    }
+  }
+}
