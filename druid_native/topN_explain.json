@@ -1,0 +1,53 @@
+{
+  "queryType": "topN",
+  "dataSource": {
+    "type": "table",
+    "name": "sketch-topn"
+  },
+  "dimension": {
+    "type": "default",
+    "dimension": "cohort",
+    "outputName": "d0",
+    "outputType": "STRING"
+  },
+  "metric": {
+    "type": "numeric",
+    "metric": "p1"
+  },
+  "threshold": 5,
+  "intervals": {
+    "type": "intervals",
+    "intervals": [
+      "-146136543-09-08T08:23:32.096Z/146140482-04-24T15:36:27.903Z"
+    ]
+  },
+  "granularity": {
+    "type": "all"
+  },
+  "aggregations": [
+    {
+      "type": "thetaSketch",
+      "name": "a0",
+      "fieldName": "theta_user",
+      "size": 16384,
+      "shouldFinalize": false
+    }
+  ],
+  "postAggregations": [
+    {
+      "type": "thetaSketchEstimate",
+      "name": "p1",
+      "field": {
+        "type": "fieldAccess",
+        "name": "p0",
+        "fieldName": "a0"
+      }
+    }
+  ],
+  "context": {
+    "queryId": "040fc6e3-210c-4cd3-a553-3de2cb125210",
+    "sqlOuterLimit": 1001,
+    "sqlQueryId": "040fc6e3-210c-4cd3-a553-3de2cb125210",
+    "useNativeQueryExplain": true
+  }
+}
