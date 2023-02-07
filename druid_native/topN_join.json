@@ -1,0 +1,109 @@
+{
+  "queryType": "topN",
+  "dataSource": {
+    "type": "join",
+    "left": {
+      "type": "table",
+      "name": "sketch-topn"
+    },
+    "right": {
+      "type": "query",
+      "query": {
+        "queryType": "scan",
+        "dataSource": {
+          "type": "query",
+          "query": {
+            "queryType": "topN",
+            "dataSource": {
+              "type": "table",
+              "name": "sketch-topn"
+            },
+            "dimension": {
+              "type": "default",
+              "dimension": "cohort",
+              "outputName": "d0",
+              "outputType": "STRING"
+            }
+            "metric": {
+              "type": "numeric",
+              "metric": "p1"
+            },
+            "threshold": 10,
+            "intervals": {
+              "type": "intervals",
+              "intervals": [
+                "-146136543-09-08T08:23:32.096Z/146140482-04-24T15:36:27.903Z"
+              ]
+            },
+            "granularity": {
+              "type": "all"
+            },
+            "aggregations": [
+              {
+                "type": "thetaSketch",
+                "name": "a0",
+                "fieldName": "theta_user",
+                "size": 32,
+                "shouldFinalize": false
+              }
+            ],
+            "postAggregations": [
+              {
+                "type": "thetaSketchEstimate",
+                "name": "p1",
+                "field": {
+                  "type": "fieldAccess",
+                  "name": "p0",
+                  "fieldName": "a0"
+                }
+              }
+            ]
+          }
+        },
+        "intervals": [ "1000/3000" ],
+        "limit": 5
+      }
+    },
+    "rightPrefix": "j0.",
+    "condition": "(\"cohort\" == \"j0.d0\")",
+    "joinType": "INNER"
+  },
+  "dimension": {
+    "type": "default",
+    "dimension": "cohort",
+    "outputName": "d0",
+    "outputType": "STRING"
+  },
+  "metric": {
+    "type": "dimension",
+    "ordering": {
+      "type": "lexicographic"
+    }
+  },
+  "threshold": 1001,
+  "intervals": {
+    "type": "intervals",
+    "intervals": [
+      "-146136543-09-08T08:23:32.096Z/146140482-04-24T15:36:27.903Z"
+    ]
+  },
+  "granularity": {
+    "type": "all"
+  },
+  "aggregations": [
+    {
+      "type": "thetaSketch",
+      "name": "a0",
+      "fieldName": "users",
+      "size": 16384
+    }
+  ],
+  "context": {
+    "populateCache": false,
+    "queryId": "b1ca34b3-3f32-46c7-977c-85b02c987625",
+    "sqlOuterLimit": 1001,
+    "sqlQueryId": "b1ca34b3-3f32-46c7-977c-85b02c987625",
+    "useCache": false,
+    "useNativeQueryExplain": true
+  }
+}
