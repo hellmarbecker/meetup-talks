@@ -9,3 +9,7 @@ Druid generated native plan for `topN_naive.sql`
 ### topN_filtered.json
 
 Does a filter like a HAVING clause for the topN query using a filtered dimension spec, but how can we get the filter list populated with a query result?
+
+### topN_wrapped.json
+
+Wraps the topN inside a scan query
