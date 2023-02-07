@@ -12,7 +12,7 @@
       "outputName": "d0",
       "outputType": "STRING"
     },
-    "values": [ 'c0004', 'c0005' ]
+    "values": [ "c0004", "c0005" ]
   },
   "metric": {
     "type": "numeric",
