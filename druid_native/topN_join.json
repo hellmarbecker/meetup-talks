@@ -10,6 +10,7 @@
       "type": "query",
       "query": {
         "queryType": "scan",
+        "columns": [ "d0" ],
         "dataSource": {
           "type": "query",
           "query": {
