@@ -3,7 +3,7 @@ import json
 from datetime import date, datetime, timedelta
 from faker import Faker
 
-ROWSPERSEC = 1000000
+ROWSPERSEC = 1000
 NUMSCHEMA = 10
 
 dim_list = ['dim' + str(i) for i in range(10)]
