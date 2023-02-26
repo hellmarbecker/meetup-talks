@@ -6,7 +6,7 @@ import sys
 
 ROWSPERSEC = 10
 NUMSCHEMA = 10
-STEPUP = 5
+STEPUP = 10000 # add more fields after each STEPUP rows
 
 dim_types = { 'd': ['word'], 'm': ['pyfloat'], 'v': ['pyint', 'word', 'pyfloat'] }
 
