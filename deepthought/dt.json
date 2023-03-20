@@ -43,5 +43,17 @@
         "session_id": "datatype.number(100)",
         "log_url": "internet.url",
         "status_code": "internet.httpStatusCode({ \"types\": [\"success\", \"serverError\"] })"
+    },
+    {
+        "_meta": {
+            "key": "id",
+            "topic": "hackathon_app_workloads"
+        },
+        "id": "datatype.number(1000)",
+        "ps_time": "date.soon(0.000015)",
+        "pid": "datatype.number(65536)",
+        "app_name": "system.filePath", 
+        "load": "datatype.float({ \"min\": 0, \"max\": 4, \"precision\": 0.1 })",
+        "percent_cpu": "datatype.float({ \"min\": 0, \"max\": 100, \"precision\": 0.1 })"
     }
 ]
