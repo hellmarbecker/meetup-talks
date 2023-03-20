@@ -55,5 +55,16 @@
         "app_name": "system.filePath", 
         "load": "datatype.float({ \"min\": 0, \"max\": 4, \"precision\": 0.1 })",
         "percent_cpu": "datatype.float({ \"min\": 0, \"max\": 100, \"precision\": 0.1 })"
+    },
+    {
+        "_meta": {
+            "key": "id",
+            "topic": "hackathon_app_power"
+        },
+        "id": "datatype.number(1000)",
+        "ps_time": "date.soon(0.000015)",
+        "sensor_id": "datatype.number(100)",
+        "name": "system.networkInterface", 
+        "power_gw": "datatype.float({ \"min\": 0, \"max\": 4000, \"precision\": 0.1 })"
     }
 ]
