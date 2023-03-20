@@ -1,9 +1,47 @@
 [
     {
         "_meta": {
-            "topic": "hackathon_mice"
+            "topic": "hackathon_mice",
+            "key": "id",
+            "relationships": [
+                {
+                    "topic": "hackathon_mice_sessions",
+                    "parent_field": "id",
+                    "child_field": "user_id",
+                    "records_per": 10
+                }
+            ]
         },
-        "id": "iteration.index",
+        "id": "datatype.number(100)",
         "name": "internet.userName"
+    },
+    {
+        "_meta": {
+            "key": "id",
+            "topic": "hackathon_mice_sessions",
+            "relationships": [
+                {
+                    "topic": "hackathon_mice_clicks",
+                    "parent_field": "id",
+                    "child_field": "session_id",
+                    "records_per": 10
+                }
+            ]
+        },
+        "id": "datatype.number(1000)",
+        "session_start_time": "date.soon(0.000015)",
+        "user_id": "datatype.number(100)",
+        "cups_of_tea": "datatype.number(20)"
+    },
+    {
+        "_meta": {
+            "key": "id",
+            "topic": "hackathon_mice_clicks"
+        },
+        "id": "datatype.number(1000)",
+        "click_time": "date.soon(0.000015)",
+        "session_id": "datatype.number(100)",
+        "log_url": "internet.url",
+        "status_code": "internet.httpStatusCode({ \"types\": [\"success\", \"serverError\"] })"
     }
 ]
