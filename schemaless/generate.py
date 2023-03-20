@@ -4,17 +4,17 @@ from datetime import date, datetime, timedelta
 from faker import Faker
 import sys
 
-ROWSPERSEC = 10
-NUMSCHEMA = 10
-STEPUP = 10000 # add more fields after each STEPUP rows
+ROWSPERSEC = 1
+NUMSCHEMA = 5
+STEPUP = 24 # add more fields after each STEPUP rows
 
 dim_types = { 'd': ['word'], 'm': ['pyfloat'], 'v': ['pyint', 'word', 'pyfloat'] }
 
 fake = Faker()
 
 def datetimerange(start_date):
-    for n in range(7 * 24 * 60 * 60): # 1 week, 1 record per second
-        yield start_date + timedelta(seconds=n)
+    for n in range(3 * 24): # 3 days, 1 record per hour
+        yield start_date + timedelta(hours=n)
 
 def genspec(n):
     dim_list = ['d' + str(i) for i in range(n)] + ['m' + str(i) for i in range(n)] + ['v' + str(i) for i in range(n)]
