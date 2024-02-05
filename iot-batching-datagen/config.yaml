@@ -1,0 +1,8 @@
+# Try to include optional files. Any settings in these files override the main settings.
+IncludeOptional:
+    # Secure Kafka settings
+    - secret.yaml
+General:
+    topic: "baker-static"
+Kafka:
+    bootstrap.servers: "localhost:9092"
