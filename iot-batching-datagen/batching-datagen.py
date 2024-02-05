@@ -23,7 +23,7 @@ def genDataSet(sensors, t0):
                 "SampleType": "StaticDataSample",
                 "Samples": [
                     {
-                        "Timestamp": t0 + 1000 * s,
+                        "Timestamp": (t0 + 1000 * s) * 10000 + 621355968000000000,
                         "DataStatus": 0,
                         "NodeStatus": 0,
                         "Value": random.gauss(u["mu"], u["sigma"])
