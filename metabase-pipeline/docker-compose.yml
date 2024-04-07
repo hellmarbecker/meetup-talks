@@ -1,0 +1,10 @@
+---
+version: '2'
+services:
+  metabase:
+    image: metabase/metabase:latest
+    hostname: metabase
+    container_name: metabase
+    ports:
+      - "3000:3000"
+
