@@ -1,0 +1,3 @@
+timestamp|team|members
+2024-09-01|Team 1|[{ "name": "Alice", "gender": "F" }, { "name": "Bob", "gender": "M" }, { "name": "Carol", "gender": "F" }]
+2024-09-01|Team 2|[{ "name": "Dan", "gender": "M" }, { "name": "Eve", "gender": "F" }, { "name": "Frank", "gender": "M" }]
