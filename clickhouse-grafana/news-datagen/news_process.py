@@ -11,7 +11,7 @@ from confluent_kafka import Producer
 from mergedeep import merge
 
 
-baseurl = "https://imply-news.com"
+baseurl = "https://world-news.com"
 fake = Faker()
 
 # Attribute selector dicts. Key is the attribute value, value is the probability of occurrence.
