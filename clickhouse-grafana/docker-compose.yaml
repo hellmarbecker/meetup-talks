@@ -62,6 +62,14 @@ services:
       - KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS=kafka-1:9092
       - KAFKA_CLUSTERS_0_NAME=r4zt_wrqTRuT7W2NJsB_GA
 
+  news-datagen:
+    build: news-datagen/. 
+    container_name: news-datagen
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+
   clickhouse:
     image: clickhouse/clickhouse-server
     user: "101:101"
@@ -73,6 +81,7 @@ services:
     ports:
       - "127.0.0.1:8123:8123"
       - "127.0.0.1:9000:9000"
+
   grafana:
     build: 
       context: ${PWD}/docker_files/
