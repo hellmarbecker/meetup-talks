@@ -29,9 +29,13 @@ CREATE TABLE news_queue
 ENGINE = Kafka('kafka:9092', 'world-news', 'clickhouse', 'JSONEachRow')
      SETTINGS kafka_thread_per_consumer = 0, kafka_num_consumers = 1;
 
+
+DROP TABLE news_mv;
+DROP TABLE news;
+
 CREATE TABLE news
 (
-    timestamp Float64, -- use toDateTime in MV
+    timestamp DateTime, -- use toDateTime in MV
     recordType LowCardinality(String),
     url String,
     useragent String,
@@ -51,11 +55,37 @@ CREATE TABLE news
     longitude Float64,
     place_name String,
     country_code LowCardinality(String),
-    timezone LowCardinality(String)
+    timezone LowCardinality(String),
+    PRIMARY KEY(sid)
 )
-ENGINE = MergeTree ORDER BY (uid, sid, timestamp);
+ENGINE = MergeTree
+PARTITION BY toYYYYMMDD(timestamp)
+ORDER BY (sid, timestamp);
+
 
 CREATE MATERIALIZED VIEW news_mv TO news AS
-SELECT * FROM news_queue;
+SELECT 
+    toDateTime(timestamp) AS timestamp,
+    recordType,
+    url,
+    useragent,
+    statuscode,
+    state,
+    statesVisited,
+    sid,
+    uid,
+    isSubscriber,
+    campaign,
+    channel,
+    contentId,
+    subContentId,
+    gender,
+    age,
+    latitude,
+    longitude,
+    place_name,
+    country_code,
+    timezone
+FROM news_queue;
 
 
