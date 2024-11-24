@@ -6,3 +6,9 @@
 
 [Blog](https://clickhouse.com/blog/visualizing-data-with-grafana)
 
+connect to SQL client:
+
+```
+docker exec -it clickhouse clickhouse-client
+```
+
