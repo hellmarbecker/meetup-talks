@@ -1,4 +1,4 @@
-# ClickHouse and Grafana
+# ClickHouse and Grafana and Metabase
 
 1 single ClickHouse Instance configured with 1 Grafana instance
 
