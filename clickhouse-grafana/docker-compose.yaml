@@ -63,3 +63,12 @@ services:
       - "127.0.0.1:3000:3000"
     depends_on:
       - clickhouse
+
+  metabase:
+    build: ./metabase
+    hostname: metabase
+    container_name: metabase
+    ports:
+      - "3100:3000"
+
+
