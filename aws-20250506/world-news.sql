@@ -40,4 +40,45 @@ CREATE TABLE default.`world-news`
 )
 ENGINE = SharedMergeTree('/clickhouse/tables/{uuid}/{shard}', '{replica}')
 ORDER BY (toStartOfDay(timestamp), uid)
-SETTINGS index_granularity = 8192
+SETTINGS index_granularity = 8192;
+
+-- aggregate table
+
+CREATE TABLE `agg-news` (
+    `hour` Timestamp, 
+    `channel` String,
+    `campaign` String,
+    numClicks AggregateFunction(countIf, UInt8),
+    numSessions AggregateFunction(uniq, String),
+    numConversions AggregateFunction(uniqIf, String, UInt8)
+)
+ENGINE = AggregatingMergeTree
+ORDER BY (channel, campaign, hour);
+
+-- Materialized View
+
+CREATE MATERIALIZED VIEW `mv-news`
+TO `agg-news`
+AS SELECT 
+    toStartOfHour(timestamp) as hour,
+    channel,
+    campaign, 
+    countIfState(recordType = 'click') as numClicks,
+    uniqState(sid) as numSessions,
+    uniqIfState(sid, has(statesVisited, 'subscribe')) as numConversions
+FROM `world-news`
+GROUP BY hour, channel, campaign;
+
+-- Analytical query
+
+SELECT
+  toStartOfDay(hour),
+  channel,
+  campaign,
+  countIfMerge(numClicks) AS numClicks,
+  uniqMerge(numSessions) AS numSessions,
+  uniqIfMerge(numConversions) AS numConversions,
+  round(100.0 * numConversions / numSessions, 2) || '%' AS convRate
+FROM `agg-news`
+GROUP BY 1, 2, 3
+ORDER BY 1, 2, 3;
