@@ -1,10 +1,11 @@
 import clickhouse_connect
 import sys
+import os
 import json
 
 CLICKHOUSE_CLOUD_HOSTNAME = 'mqvsbo7uzs.eu-central-1.aws.clickhouse.cloud'
 CLICKHOUSE_CLOUD_USER = 'default'
-CLICKHOUSE_CLOUD_PASSWORD = '1g7_NpzXHq1.6'
+CLICKHOUSE_CLOUD_PASSWORD = os.environ['CLICKHOUSE_CLOUD_PASSWORD']
 
 client = clickhouse_connect.get_client(
     host=CLICKHOUSE_CLOUD_HOSTNAME, port=8443, username=CLICKHOUSE_CLOUD_USER, password=CLICKHOUSE_CLOUD_PASSWORD)
